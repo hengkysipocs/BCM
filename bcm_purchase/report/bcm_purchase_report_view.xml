@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="bcm_view_purchase_order_search" model="ir.ui.view">
+        <field name="name">bcm.report.purchase.order.search</field>
+        <field name="model">purchase.report</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_search" />
+        <field name="arch" type="xml">
+            <search string="Purchase Orders" position="replace">
+                <search string="Purchase Orders">
+                    <filter string="Quotations" name="quotes" domain="[('state','=','draft')]"/>
+                    <filter string="Orders" name="orders" domain="[('state','&lt;&gt;','draft'),('state','&lt;&gt;','cancel')]"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <group expand="0" string="Extended Filters">
+                        <field name="user_id"/>
+                        <field name="validator"/>
+                        <field name="location_id"/>
+                        <field name="picking_type_id"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="date"/>
+                        <field name="date_approve"/>
+                        <field name="expected_date"/>
+                    </group>
+                    <group expand="1" string="Group By">
+                        <filter string="Type" context="{'group_by':'po_type'}"/>
+                        <filter string="Hull" context="{'group_by':'mrp_id'}"/>
+                        <filter string="Supplier" name="group_partner_id" context="{'group_by':'partner_id'}"/>
+                        <filter string="Responsible" name="Responsible" context="{'group_by':'user_id'}"/>
+                        <filter string="Category of product" name="group_category_id" context="{'group_by':'category_id'}"/>
+                        <filter string="Status" context="{'group_by':'state'}"/>
+                        <filter string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                        <separator/>
+                        <filter string="Order Month" context="{'group_by':'date:month'}" help="Order of Day"/>
+                    </group>
+                </search>
+            </search>
+        </field>
+    </record>
+    </data>
+</openerp>
