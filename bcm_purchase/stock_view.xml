@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id="bcm_stock_view_form" model="ir.ui.view">
+		    <field name="name">bcm.stock.picking.form</field>
+		    <field name="model">stock.picking</field>
+		    <field name="inherit_id" ref="stock.view_picking_form" />
+		    <field name="type">form</field>
+		    <field name="arch" type="xml">
+                <field name="owner_id" position="replace">
+                </field>
+                <xpath expr="/form/sheet/notebook/page[@string='Products']" position="replace">
+                	<separator string="Stock Moves" attrs="{'invisible': [('pack_operation_exist', '=', False)]}"/>
+                    <field name="move_lines" context="{'address_in_id': partner_id, 'default_picking_type_id': picking_type_id,'default_picking_id': active_id}">
+                    	<tree editable="bottom">
+                            <field name="product_id" on_change="product_id_change(product_id, product_uom_id, product_qty)"/>
+                            <field name="product_uom_id" groups="product.group_uom"/>
+                        	<field name="name"/>
+                            <field name="picking_id" invisible="1"/>
+                            <field name="product_qty" attrs="{'required': [('product_id', '!=', False)]}"/>
+                            <field name="location_id" domain="[('id', 'child_of', parent.location_id)]"/>
+                            <field name="location_dest_id" domain="[('id', 'child_of', parent.location_dest_id)]"/>
+                        </tree>
+                    </field>
+                    <field name="pack_operation_exist" invisible="1"/>
+                    <field name="note" placeholder="Add an internal note..." class="oe_inline"/>
+               </xpath>
+		</record>
+
+	</data>
+</openerp>

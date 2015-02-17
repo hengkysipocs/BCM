@@ -28,9 +28,10 @@
         'purchase',
     ],
     'data' : [
-        'bcm_purchase_view.xml',
-        'report/bcm_purchase_report_view.xml',
-        'report/bcm_report_purchaseorder.xml',
+        # 'bcm_purchase_view.xml',
+        # 'report/bcm_purchase_report_view.xml',
+        # 'report/bcm_report_purchaseorder.xml',
+        'stock_view.xml',
     ],
     'installable' : True,
     'application' : True,
